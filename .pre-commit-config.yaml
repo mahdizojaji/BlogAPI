@@ -1,0 +1,30 @@
+default_language_version:
+  python: python3.10
+
+repos:
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/psf/black
+    rev: 22.12.0
+    hooks:
+      - id: black
+        exclude: ^migrations/
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: ["--profile", "black"]
+
+  - repo: local
+    hooks:
+      - id: test
+        name: test
+        entry: python manage.py test --noinput --keepdb
+        always_run: true
+        pass_filenames: false
+        language: system
