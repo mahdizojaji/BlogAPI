@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "f7fdb0ba-70db-4f46-9e78-e4f02a4cb282",
+		"name": "BlogAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18007791"
+	},
+	"item": [
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "Upload Media",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/mahdi/Pictures/Personal/1.jpg"
+								},
+								{
+									"key": "description",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/media/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"media",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/media/:uuid/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"media",
+								":uuid",
+								""
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "38b76eb2-a94e-4499-a6c7-0364e3655469"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
