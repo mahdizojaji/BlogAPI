@@ -15,7 +15,10 @@ class BaseModel(models.Model, metaclass=AbstractModelMeta):
         primary_key=True,
     )
     uuid = models.UUIDField(
-        verbose_name=_("UUID"), unique=True, db_index=True, default=uuid4
+        verbose_name=_("UUID"),
+        unique=True,
+        db_index=True,
+        default=uuid4,
     )
     created_at = models.DateTimeField(
         verbose_name=_("Created Time"),
