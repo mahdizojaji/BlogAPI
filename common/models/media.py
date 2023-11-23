@@ -35,6 +35,8 @@ class Media(BaseModel):
         using=None,
         update_fields=None,
     ):
+        if self.file.seekable():
+            self.file.seek(0)
         self.mime_type = get_mime_type_of_file(self.file.read())
         super().save(
             force_insert=force_insert,
