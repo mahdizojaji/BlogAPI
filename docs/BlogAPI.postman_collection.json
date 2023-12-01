@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "f7fdb0ba-70db-4f46-9e78-e4f02a4cb282",
+		"_postman_id": "ce9b1285-9260-46c3-9846-3cf9811cd581",
 		"name": "BlogAPI",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18007791"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -64,6 +63,492 @@
 									"key": "uuid",
 									"value": "38b76eb2-a94e-4499-a6c7-0364e3655469"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"json_response = pm.response.json()",
+									"",
+									"if (json_response.access) {",
+									"    pm.environment.set('ACCESS_TOKEN', json_response.access)",
+									"}",
+									"if (json_response.refresh) {",
+									"    pm.environment.set('REFRESH_TOKEN', json_response.refresh)",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/token/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TokenVerify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/token/verify/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"token",
+								"verify",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TokenRefresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"json_response = pm.response.json()",
+									"",
+									"if (json_response.access) {",
+									"    pm.environment.set('ACCESS_TOKEN', json_response.access)",
+									"}",
+									"if (json_response.refresh) {",
+									"    pm.environment.set('REFRESH_TOKEN', json_response.refresh)",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh",
+									"value": "{{REFRESH_TOKEN}}",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/token/refresh/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "‌Blog",
+			"item": [
+				{
+					"name": "NewArticle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MyArticles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RetrieveArticle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/:article_uuid/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								":article_uuid",
+								""
+							],
+							"variable": [
+								{
+									"key": "article_uuid",
+									"value": "36ac43e2-4906-48ee-ba43-b1ce34057184"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteArticle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/:article_uuid/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								":article_uuid",
+								""
+							],
+							"variable": [
+								{
+									"key": "article_uuid",
+									"value": "e5f11376-896c-4e38-8b9d-f1458f681342"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ArticleUpdate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/:article_uuid/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								":article_uuid",
+								""
+							],
+							"variable": [
+								{
+									"key": "article_uuid",
+									"value": "e5f11376-896c-4e38-8b9d-f1458f681342"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ArticlePartialUpdate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/:article_uuid/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								":article_uuid",
+								""
+							],
+							"variable": [
+								{
+									"key": "article_uuid",
+									"value": "e5f11376-896c-4e38-8b9d-f1458f681342"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PublishArticle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/:article_uuid/publish/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								":article_uuid",
+								"publish",
+								""
+							],
+							"variable": [
+								{
+									"key": "article_uuid",
+									"value": "36ac43e2-4906-48ee-ba43-b1ce34057184"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ArchiveArticle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/:article_uuid/archive/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								":article_uuid",
+								"archive",
+								""
+							],
+							"variable": [
+								{
+									"key": "article_uuid",
+									"value": "36ac43e2-4906-48ee-ba43-b1ce34057184"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Explore",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/blog/api/article/explore/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"blog",
+								"api",
+								"article",
+								"explore",
+								""
 							]
 						}
 					},
