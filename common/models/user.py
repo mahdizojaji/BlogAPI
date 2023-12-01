@@ -7,10 +7,9 @@ from . import BaseModel
 
 
 class User(AbstractUser, BaseModel):
-    username = None
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("email address"), null=True, blank=True)
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
 
     objects = UserManager()
