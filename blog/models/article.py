@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from common.models import BaseModel, Media
@@ -41,6 +43,39 @@ class Article(BaseModel):
         on_delete=models.CASCADE,
         related_name="articles",
     )
+    published_at = models.DateTimeField(
+        verbose_name="Published At",
+        null=True,
+        blank=True,
+    )
+    archived_at = models.DateTimeField(
+        verbose_name="Archived At",
+        null=True,
+        blank=True,
+    )
+
+    def make_archive(self):
+        if self.status == self.Status.PUBLISHED:
+            self.status = self.Status.ARCHIVED
+            self.archived_at = timezone.now()
+            self.published_at = None
+
+    def make_publish(self):
+        if self.status in [self.Status.DRAFT, self.Status.ARCHIVED]:
+            self.status = self.Status.PUBLISHED
+            self.published_at = timezone.now()
+            self.archived_at = None
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        self.slug = slugify(self.title, allow_unicode=True)
+        super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
+        )
 
     def __str__(self):
         return f"{self.id}"
