@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from common.models import Media
+
 from ..models import Article
 
 
@@ -26,3 +28,10 @@ class ArticleSerializer(serializers.ModelSerializer):
             "published_at",
             "archived_at",
         )
+
+    def update(self, instance: Article, validated_data):
+        attachments = validated_data.pop("attachments", [])
+        for attachment in attachments:
+            media = Media.objects.get(uuid=attachment)
+            instance.attachments.add(media)
+        return super().update(instance, validated_data)
