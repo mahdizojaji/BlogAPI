@@ -1,0 +1,371 @@
+{
+  "created_at": "2023-12-14 09:31",
+  "cli_options": "-a -g -E -S -o my_project_visualized.json --arrow-shape curve --hide-edge-labels -X BaseModel,Site,LogEntry,ContentType,AbstractBaseSession,Session,AbstractUser,Group,Permission --json",
+  "disable_fields": false,
+  "disable_abstract_fields": false,
+  "use_subgraph": true,
+  "rankdir": "TB",
+  "graphs": [
+    {
+      "True": true,
+      "False": false,
+      "None": null,
+      "name": "blog",
+      "app_name": "blog",
+      "cluster_app_name": "cluster_blog",
+      "models": [
+        {
+          "app_name": "blog_models_article",
+          "name": "Article",
+          "abstracts": [
+            "BaseModel"
+          ],
+          "fields": [
+            {
+              "name": "id",
+              "label": "id",
+              "type": "AutoField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": true
+            },
+            {
+              "name": "uuid",
+              "label": "uuid",
+              "type": "UUIDField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "created_at",
+              "label": "created_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "updated_at",
+              "label": "updated_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "title",
+              "label": "title",
+              "type": "CharField",
+              "blank": false,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "slug",
+              "label": "slug",
+              "type": "SlugField",
+              "blank": false,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "status",
+              "label": "status",
+              "type": "CharField",
+              "blank": false,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "body",
+              "label": "body",
+              "type": "TextField",
+              "blank": false,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "author",
+              "label": "author",
+              "type": "ForeignKey (id)",
+              "blank": false,
+              "abstract": false,
+              "relation": true,
+              "primary_key": false
+            },
+            {
+              "name": "published_at",
+              "label": "published_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "archived_at",
+              "label": "archived_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            }
+          ],
+          "relations": [
+            {
+              "target_app": "common_models_user",
+              "target": "User",
+              "type": "ForeignKey",
+              "name": "author",
+              "label": "",
+              "arrows": "[arrowhead=none, arrowtail=curve, dir=both]",
+              "needs_node": false
+            },
+            {
+              "target_app": "common_models_media",
+              "target": "Media",
+              "type": "ManyToManyField",
+              "name": "attachments",
+              "label": "",
+              "arrows": "[arrowhead=curve arrowtail=curve, dir=both]",
+              "needs_node": false
+            }
+          ],
+          "label": "Article"
+        }
+      ]
+    },
+    {
+      "True": true,
+      "False": false,
+      "None": null,
+      "name": "common",
+      "app_name": "common",
+      "cluster_app_name": "cluster_common",
+      "models": [
+        {
+          "app_name": "common_models_media",
+          "name": "Media",
+          "abstracts": [
+            "BaseModel"
+          ],
+          "fields": [
+            {
+              "name": "id",
+              "label": "id",
+              "type": "AutoField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": true
+            },
+            {
+              "name": "created_at",
+              "label": "created_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "updated_at",
+              "label": "updated_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "uuid",
+              "label": "uuid",
+              "type": "UUIDField",
+              "blank": false,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "file",
+              "label": "file",
+              "type": "FileField",
+              "blank": false,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "mime_type",
+              "label": "mime_type",
+              "type": "CharField",
+              "blank": true,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "description",
+              "label": "description",
+              "type": "TextField",
+              "blank": true,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            }
+          ],
+          "relations": [],
+          "label": "Media"
+        },
+        {
+          "app_name": "common_models_user",
+          "name": "User",
+          "abstracts": [
+            "AbstractUser",
+            "BaseModel"
+          ],
+          "fields": [
+            {
+              "name": "id",
+              "label": "id",
+              "type": "AutoField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": true
+            },
+            {
+              "name": "password",
+              "label": "password",
+              "type": "CharField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "last_login",
+              "label": "last_login",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "is_superuser",
+              "label": "is_superuser",
+              "type": "BooleanField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "username",
+              "label": "username",
+              "type": "CharField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "first_name",
+              "label": "first_name",
+              "type": "CharField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "last_name",
+              "label": "last_name",
+              "type": "CharField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "is_staff",
+              "label": "is_staff",
+              "type": "BooleanField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "is_active",
+              "label": "is_active",
+              "type": "BooleanField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "date_joined",
+              "label": "date_joined",
+              "type": "DateTimeField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "uuid",
+              "label": "uuid",
+              "type": "UUIDField",
+              "blank": false,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "created_at",
+              "label": "created_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "updated_at",
+              "label": "updated_at",
+              "type": "DateTimeField",
+              "blank": true,
+              "abstract": true,
+              "relation": false,
+              "primary_key": false
+            },
+            {
+              "name": "email",
+              "label": "email",
+              "type": "EmailField",
+              "blank": true,
+              "abstract": false,
+              "relation": false,
+              "primary_key": false
+            }
+          ],
+          "relations": [],
+          "label": "User"
+        }
+      ]
+    }
+  ]
+}

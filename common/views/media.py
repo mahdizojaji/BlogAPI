@@ -12,7 +12,7 @@ class MediaViewSet(
     viewsets.GenericViewSet,
 ):
     permission_classes = [IsAuthenticated]
-    authentication_classes = JWTStatelessUserAuthentication
+    authentication_classes = [JWTStatelessUserAuthentication]
     serializer_class = MediaSerializer
     queryset = Media.objects.all()
     lookup_field = "uuid"

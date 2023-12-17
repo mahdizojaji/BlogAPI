@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Third-party apps
     "rest_framework",
     "rest_framework_simplejwt",
+    "django_extensions",
     # Local apps
     "blog",
     "common",
@@ -163,4 +164,9 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+GRAPH_MODELS = {
+    "all_applications": True,
+    "group_models": True,
 }
