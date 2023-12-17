@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTStatelessUserAuthentication
 
 from ..models import Article
-from ..serializers import ArticleSerializer
+from ..serializers import ArticleSerializer, ArticleUpdateSerializer
 
 User = get_user_model()
 
@@ -16,6 +16,13 @@ class ArticleViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTStatelessUserAuthentication]
     serializer_class = ArticleSerializer
     lookup_field = "uuid"
+
+    def get_serializer_class(self):
+        action_mapper = {
+            "update": ArticleUpdateSerializer,
+            "partial_update": ArticleUpdateSerializer,
+        }
+        return action_mapper.get(self.action, ArticleSerializer)
 
     def get_queryset(self):
         if self.action == "explore":

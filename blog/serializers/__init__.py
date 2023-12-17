@@ -1,1 +1,1 @@
-from .article import ArticleSerializer
+from .article import ArticleSerializer, ArticleUpdateSerializer
