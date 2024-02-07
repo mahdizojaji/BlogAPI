@@ -1,4 +1,4 @@
-django==4.2.7
+django==4.2.10
 python-decouple==3.8
 pre-commit==3.5.0
 python-magic==0.4.27
